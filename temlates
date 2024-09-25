@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Bot</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Voice Communication Bot</h1>
+        <button onclick="startRecording()">Start Recording</button>
+        <audio id="responseAudio" controls></audio>
+        <p id="responseText"></p>
+    </div>
+
+    <script>
+        function startRecording() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    const mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.start();
+
+                    setTimeout(() => {
+                        mediaRecorder.stop();
+                    }, 5000);  // Record for 5 seconds
+
+                    mediaRecorder.ondataavailable = function (e) {
+                        const audioData = e.data;
+                        const formData = new FormData();
+                        formData.append('audio', audioData);
+
+                        fetch('/process_audio', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById('responseText').innerText = data.response;
+                            document.getElementById('responseAudio').src = data.audio_response;
+                        });
+                    };
+                });
+        }
+    </script>
+</body>
+</html>
