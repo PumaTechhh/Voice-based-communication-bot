@@ -37,6 +37,3 @@ The `config/config.yaml` file contains settings for the speech-to-text and text-
 - Flask
 - Google Cloud Speech or Microsoft Azure for speech recognition (or any other API of your choice)
 - pyttsx3 for text-to-speech
-
-## License:
-This project is licensed under the MIT License. See the LICENSE file for details.
