@@ -1,0 +1,6 @@
+speech_recognition:
+  api_key: 'YOUR_GOOGLE_CLOUD_API_KEY'
+  language: 'en-US'
+
+text_to_speech:
+  engine: 'pyttsx3'
