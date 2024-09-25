@@ -1,0 +1,4 @@
+def convert_audio_format(input_path, output_path, format='wav'):
+    """Converts an audio file to the specified format."""
+    sound = AudioSegment.from_file(input_path)
+    sound.export(output_path, format=format)
